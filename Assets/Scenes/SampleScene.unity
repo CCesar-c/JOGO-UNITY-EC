@@ -377,8 +377,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 343090561}
   cam: {fileID: 330585546}
-  sensi: 2000
-  force: 1000
+  arma: {fileID: 1054453554}
+  sensi: 1000
+  force: 1500
 --- !u!4 &343090563
 Transform:
   m_ObjectHideFlags: 0
@@ -697,6 +698,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1054453554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 80e816df86b820b49a5a9fe8e1bab63f, type: 3}
+  m_PrefabInstance: {fileID: 1554472887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1554472887
 PrefabInstance:
   m_ObjectHideFlags: 0
