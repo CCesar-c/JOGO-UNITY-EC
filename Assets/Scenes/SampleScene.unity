@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 343090561}
-  force: 10000
+  force: 100
 --- !u!4 &343090563
 Transform:
   m_ObjectHideFlags: 0

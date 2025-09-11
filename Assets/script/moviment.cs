@@ -3,25 +3,25 @@ using UnityEngine;
 public class moviment : MonoBehaviour
 {
     public Rigidbody rb;
-    public float force;
+    public float force  = 1000;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(force * transform.forward);
+            rb.AddForce(force * Time.deltaTime * transform.forward);
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
             rb.AddForce(force * Time.deltaTime * -transform.forward);
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             rb.AddForce(force * Time.deltaTime * -transform.right);
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             rb.AddForce(force * Time.deltaTime * transform.right);
         }
