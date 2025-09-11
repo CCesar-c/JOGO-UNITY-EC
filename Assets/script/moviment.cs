@@ -25,5 +25,9 @@ public class moviment : MonoBehaviour
         {
             rb.AddForce(force * Time.deltaTime * transform.right);
         }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            
+        }
     }
 }
