@@ -21,7 +21,7 @@ public class moviment : MonoBehaviour
     private Quaternion armaRotHip = Quaternion.Euler(0f, 270f, -10f);
     private Vector3 armaScaleHip = new Vector3(1f, 1f, 1f);
 
-    void Update()
+    void FixedUpdate()
     {
         // --- Rotación de cámara y jugador
         float mouseX = Input.GetAxis("Mouse X") * sensi * Time.deltaTime;
