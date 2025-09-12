@@ -2,6 +2,7 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+
 .utmp/
 /[Ll]ibrary/
 /[Tt]emp/
@@ -97,3 +98,14 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# ---------------------------------------------
+# Archivos modernos que causan problemas de compatibilidad 6→2018
+# Ignora paquetes y configuraciones que no existían en Unity 2018
+/[Pp]ackages/
+/ProjectSettings/TimelineSettings.asset
+/ProjectSettings/VisualScriptingSettings.asset
+/ProjectSettings/VFXManager.asset
+/ProjectSettings/XRSettings.asset
+/ProjectSettings/ShaderGraphSettings.asset
+/ProjectSettings/CollabSettings.asset
