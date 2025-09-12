@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class moviment : MonoBehaviour
 {
+    public float vida;
     public Rigidbody rb;
     public Transform cam;
     public GameObject arma;
 
     public float sensi = 200f;
     public float force = 1000f;
-    public float armaMoveSpeed = 5f; // Velocidad de transición del arma
+    public float armaMoveSpeed = 1f; // Velocidad de transición del arma
 
     private float rotationX = 0f;
 
