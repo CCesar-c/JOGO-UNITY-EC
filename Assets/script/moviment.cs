@@ -5,25 +5,18 @@ public class moviment : MonoBehaviour
     public float vida;
     public Rigidbody rb;
     public Transform cam;
-    public GameObject arma;
 
     public float sensi = 200f;
     public float force = 1000f;
-    public float armaMoveSpeed = 1f; // Velocidad de transición del arma
+    public float armaMoveSpeed; // Velocidad de transición del arma
 
     private float rotationX = 0f;
 
     // Posiciones y rotaciones objetivo del arma
-    private Vector3 armaPosAim = new Vector3(-0.02f, -1.29f, -0.12f);
-    private Quaternion armaRotAim = Quaternion.Euler(0, 270f, -30f);
-    private Vector3 armaScaleAim = new Vector3(1f, 5f, 10f);
-
-    private Vector3 armaPosHip = new Vector3(0.5f, -0.5f, 1.1f);
-    private Quaternion armaRotHip = Quaternion.Euler(0f, 270f, -10f);
-    private Vector3 armaScaleHip = new Vector3(1f, 1f, 1f);
-
     void FixedUpdate()
     {
+        Game_manager.gm.vida_slider.value = vida;
+        armaMoveSpeed = Game_manager.gm.delay * 5;
         // --- Rotación de cámara y jugador
         float mouseX = Input.GetAxis("Mouse X") * sensi * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensi * Time.deltaTime;
@@ -34,19 +27,6 @@ public class moviment : MonoBehaviour
         cam.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
 
-        // --- Movimiento del arma
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
-            arma.transform.localPosition = Vector3.Lerp(arma.transform.localPosition, armaPosAim, armaMoveSpeed * Time.deltaTime);
-            arma.transform.localRotation = Quaternion.Lerp(arma.transform.localRotation, armaRotAim, armaMoveSpeed * Time.deltaTime);
-            arma.transform.localScale = Vector3.Lerp(arma.transform.localScale, armaScaleAim, armaMoveSpeed * Time.deltaTime);
-        }
-        else
-        {
-            arma.transform.localPosition = Vector3.Lerp(arma.transform.localPosition, armaPosHip, armaMoveSpeed * Time.deltaTime);
-            arma.transform.localRotation = Quaternion.Lerp(arma.transform.localRotation, armaRotHip, armaMoveSpeed * Time.deltaTime);
-            arma.transform.localScale = Vector3.Lerp(arma.transform.localScale, armaScaleHip, armaMoveSpeed * Time.deltaTime);
-        }
 
         // --- Movimiento del jugador con Rigidbody
         Vector3 moveDir = Vector3.zero;
