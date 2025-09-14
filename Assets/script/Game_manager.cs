@@ -2,20 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
 
-public class Game_manager : NetworkBehaviour
+
+public class Game_manager : MonoBehaviour
 {
     public Text text_balas;
     public Slider vida_slider;
     public static Game_manager gm;
     public GameObject[] armass;
-    [Syncvar] public bool Disparar = false;
+     public bool Disparar = false;
     public float dano = 100;
-    [Syncvar] public int municiones = 5;
+     public int municiones = 5;
     public float delay = 2;
     public GameObject balas;
     public GameObject spaw_balls;
+
+    private Vector3 armaPosAim = new Vector3(-0.02f, -1.29f, -0.12f);
+    private Quaternion armaRotAim = Quaternion.Euler(0, 270f, -30f);
+    private Vector3 armaScaleAim = new Vector3(1f, 5f, 10f);
+
+    private Vector3 armaPosHip = new Vector3(0.5f, -0.5f, 1.1f);
+    private Quaternion armaRotHip = Quaternion.Euler(0f, 270f, -10f);
+    private Vector3 armaScaleHip = new Vector3(1f, 1f, 1f);
 
     void Awake()
     {
@@ -29,21 +37,13 @@ public class Game_manager : NetworkBehaviour
             Destroy(this.gameObject);
         }
     }
-    private Vector3 armaPosAim = new Vector3(-0.02f, -1.29f, -0.12f);
-    private Quaternion armaRotAim = Quaternion.Euler(0, 270f, -30f);
-    private Vector3 armaScaleAim = new Vector3(1f, 5f, 10f);
 
-    private Vector3 armaPosHip = new Vector3(0.5f, -0.5f, 1.1f);
-    private Quaternion armaRotHip = Quaternion.Euler(0f, 270f, -10f);
-    private Vector3 armaScaleHip = new Vector3(1f, 1f, 1f);
     void Update()
     {
-        if (!isLocalPlayer) return;
         text_balas.text = "Balas: " + municiones;
 
         for (int i = 0; i < armass.Length; i++)
         {
-
             if (Input.GetKey(KeyCode.Mouse1))
             {
                 armass[i].transform.localPosition = Vector3.Lerp(armass[i].transform.localPosition, armaPosAim, 5 * delay * Time.deltaTime);
@@ -57,7 +57,6 @@ public class Game_manager : NetworkBehaviour
                 armass[i].transform.localScale = Vector3.Lerp(armass[i].transform.localScale, armaScaleHip, 5 * delay * Time.deltaTime);
             }
 
-            // --- Movimiento del armass[i]
             switch (i)
             {
                 case 0:
@@ -83,7 +82,6 @@ public class Game_manager : NetworkBehaviour
     }
 
 
-    [Command]
     void CmdShoot()
     {
         if (municiones <= 0 || Disparar) return;
@@ -93,7 +91,6 @@ public class Game_manager : NetworkBehaviour
 
         GameObject g = Instantiate(balas, spaw_balls.transform.position, spaw_balls.transform.rotation);
         g.GetComponent<Rigidbody>().AddForce(g.transform.forward * 1000);
-        NetworkServer.Spawn(g); // 🔥 Se sincroniza con todos los clientes
 
         StartCoroutine(ResetDisparo());
     }
@@ -105,7 +102,6 @@ public class Game_manager : NetworkBehaviour
     }
 
     // --- Recarga en el servidor
-    [Command]
     void CmdReload(int balas)
     {
         StartCoroutine(ReloadCoroutine(balas));

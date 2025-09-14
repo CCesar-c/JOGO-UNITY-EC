@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using Mirror;
 
-public class balas : NetworkBehaviour
+
+public class balas : MonoBehaviour
 {
     void OnCollisionEnter(Collision collision)
     {
-        if (!isServer) return; // 🔥 Solo el servidor gestiona daño y destrucción
 
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -17,6 +16,6 @@ public class balas : NetworkBehaviour
         }
 
         // 🔥 Se destruye en el servidor → desaparece en todos los clientes
-        NetworkServer.Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 }

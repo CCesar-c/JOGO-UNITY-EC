@@ -1,10 +1,9 @@
 using UnityEngine;
-using Mirror;
 
-[RequireComponent(typeof(Rigidbody))]
-public class moviment : NetworkBehaviour
+//[RequireComponent(typeof(Rigidbody))]
+public class moviment : MonoBehaviour
 {
-    [SyncVar] public float vida = 100f;
+    public float vida = 100f;
 
     public Rigidbody rb;
     public Transform cam;
@@ -16,15 +15,12 @@ public class moviment : NetworkBehaviour
 
     void Start()
     {
-        if (!isLocalPlayer)
-        {
-            cam.gameObject.SetActive(false); // 🔥 Cada jugador ve solo su cámara
-            return;
-        }
+
     }
+
+
     public void TakeDamage(float amount)
     {
-        if (!isServer) return; // 🔥 Solo el servidor cambia la vida
         vida -= amount;
 
         if (vida <= 0)
@@ -35,7 +31,6 @@ public class moviment : NetworkBehaviour
     }
     void FixedUpdate()
     {
-        if (!isLocalPlayer) return;
 
         // Actualizar UI (solo para el jugador local)
         if (Game_manager.gm != null)
@@ -63,7 +58,6 @@ public class moviment : NetworkBehaviour
         CmdMove(moveDir.normalized);
     }
 
-    [Command]
     void CmdMove(Vector3 dir)
     {
         // Aplica la fuerza en el servidor
