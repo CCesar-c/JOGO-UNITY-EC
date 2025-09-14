@@ -1,18 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Mirror;
 
-public class balas : MonoBehaviour
+public class balas : NetworkBehaviour
 {
-    void OnCollisionStay(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
+        if (!isServer) return; // 🔥 Solo el servidor gestiona daño y destrucción
+
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (collision.gameObject.GetComponent<moviment>() == null )return;
-            collision.gameObject.GetComponent<moviment>().vida -= Game_manager.gm.dano;
-            Destroy(this.gameObject);
-        }else if (collision.gameObject.tag != "Player"){
-            Destroy(this.gameObject);
+            moviment m = collision.gameObject.GetComponent<moviment>();
+            if (m != null)
+            {
+                m.TakeDamage(Game_manager.gm.dano); // 🔥 aplicamos daño de forma segura
+            }
         }
+
+        // 🔥 Se destruye en el servidor → desaparece en todos los clientes
+        NetworkServer.Destroy(this.gameObject);
     }
 }
